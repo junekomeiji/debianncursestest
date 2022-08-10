@@ -46,8 +46,6 @@ int main(int argc, char* argv[]){
 	init_pair(3, COLOR_RED, COLOR_WHITE);
 	wbkgd(stdscr, COLOR_PAIR(1));
 	
-	mvprintw(0, 0, "My terminal supports %d colours. \n", COLORS);
-	
 	menu_win = newwin(newwinheight, newwinwidth, 2, 5);
 	keypad(menu_win, TRUE);
 	refresh();
@@ -106,7 +104,6 @@ void print_menu(WINDOW *menu_win, int highlight){
 	wattroff(menu_win, COLOR_PAIR(3));
 	
 	y = print_margin(menu_win, 2, 2, 2, 2, testmsg) + 2;
-	mvprintw(2, 0, "%d", strlen(choices[2]));
 	refresh();
 	
 	for(int i = 0; i < n_choices - 1; i++){
@@ -195,7 +192,6 @@ int print_margin(WINDOW *win, int starty, int startx, int lmargin, int rmargin, 
 		
 	}
 	
-	mvprintw(1, 0, "%d", y);
 	
 	return y;
 
