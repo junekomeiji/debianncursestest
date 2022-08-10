@@ -80,12 +80,18 @@ int main(int argc, char* argv[]){
 		print_menu(menu_win, highlight);
 		refresh();
 	
+		if(choice == 5){
+			break;
+		}
+	
 	}
 	
-	clrtoeol();
-	getch();
-	endwin();
 	
+	if(choice == 5){
+		clrtoeol();
+		getch();
+		endwin();
+	}
 }
 
 void print_menu(WINDOW *menu_win, int highlight){
