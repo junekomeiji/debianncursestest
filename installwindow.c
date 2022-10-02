@@ -31,14 +31,20 @@ int print_margin(WINDOW *win, int starty, int startx, int lmargin, int rmargin, 
 
 int main(int argc, char* argv[]){
 	
+	// set initial choice, initialise windows
+	
 	WINDOW *menu_win;
 	int choice = 0;
 	int highlight = 1;
+	
+	// initialise window
 	
 	initscr();
 	clear();
 	noecho();
 	cbreak();
+	
+	// initialise colours
 	
 	start_color();
 	init_pair(1, COLOR_WHITE, COLOR_BLUE);
@@ -46,10 +52,14 @@ int main(int argc, char* argv[]){
 	init_pair(3, COLOR_RED, COLOR_WHITE);
 	wbkgd(stdscr, COLOR_PAIR(1));
 	
+	// initialise windows
+	
 	menu_win = newwin(newwinheight, newwinwidth, 2, 5);
 	keypad(menu_win, TRUE);
 	refresh();
 	print_menu(menu_win, highlight);
+	
+	// main loop for keyboard input
 	
 	while(1){
 	
@@ -77,21 +87,24 @@ int main(int argc, char* argv[]){
 			
 		}
 	
+		//refresh window 
+	
 		print_menu(menu_win, highlight);
 		refresh();
 	
-		if(choice == 5){
+		if(choice == 5)
 			break;
-		}
 	
 	}
 	
+	// exit ncurses
 	
-	if(choice == 5){
-		clrtoeol();
-		getch();
-		endwin();
-	}
+	clrtoeol();
+	getch();
+	endwin();
+	
+	return 0;
+	
 }
 
 void print_menu(WINDOW *menu_win, int highlight){
@@ -101,16 +114,24 @@ void print_menu(WINDOW *menu_win, int highlight){
 	
 	x = 2;
 	y = 2; 
-
+	
+	//show paper, set background colour
+	
 	box(menu_win, 0, 0);
 	wbkgd(menu_win, COLOR_PAIR(2));
+	
+	//make window visible
 	
 	wattron(menu_win, COLOR_PAIR(3));
 	mvwprintw(menu_win, 0, ((newwinwidth - strlen(title)) / 2), "%s", title);
 	wattroff(menu_win, COLOR_PAIR(3));
 	
+	//print main message
+	
 	y = print_margin(menu_win, 2, 2, 2, 2, testmsg) + 2;
 	refresh();
+	
+	//print choices
 	
 	for(int i = 0; i < n_choices - 1; i++){
 		
